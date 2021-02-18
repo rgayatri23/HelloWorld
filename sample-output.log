@@ -1,0 +1,158 @@
+slurm-tasks-per-node = 7
+slurm-cpus-per-task = 
+slurm-cpus-on-node = 70
+srun -n7 -c10 ./cudahello
+Hello Rahul from processor cgpu09, rank = 4 out of 7 processors
+My GPU = 0000:88:00.0
+I see a total of 7 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+CPUs and Threads assigned to me are 
+rank = 0004, thread = 000, cpu = 051
+rank = 0004, thread = 001, cpu = 052
+rank = 0004, thread = 002, cpu = 013
+rank = 0004, thread = 003, cpu = 010
+rank = 0004, thread = 004, cpu = 050
+rank = 0004, thread = 005, cpu = 014
+rank = 0004, thread = 006, cpu = 054
+rank = 0004, thread = 007, cpu = 012
+rank = 0004, thread = 008, cpu = 051
+rank = 0004, thread = 009, cpu = 053
+
+************************************************************************************ 
+Hello Rahul from processor cgpu09, rank = 6 out of 7 processors
+My GPU = 0000:B2:00.0
+I see a total of 7 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+CPUs and Threads assigned to me are 
+rank = 0006, thread = 000, cpu = 019
+rank = 0006, thread = 001, cpu = 015
+rank = 0006, thread = 002, cpu = 016
+rank = 0006, thread = 003, cpu = 017
+rank = 0006, thread = 004, cpu = 018
+rank = 0006, thread = 005, cpu = 016
+rank = 0006, thread = 006, cpu = 057
+rank = 0006, thread = 007, cpu = 058
+rank = 0006, thread = 008, cpu = 059
+rank = 0006, thread = 009, cpu = 055
+
+************************************************************************************ 
+Hello Rahul from processor cgpu09, rank = 0 out of 7 processors
+My GPU = 0000:1A:00.0
+I see a total of 7 GPUs and the other PCI IDs are: 
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+CPUs and Threads assigned to me are 
+rank = 0000, thread = 000, cpu = 000
+rank = 0000, thread = 001, cpu = 041
+rank = 0000, thread = 002, cpu = 001
+rank = 0000, thread = 003, cpu = 002
+rank = 0000, thread = 004, cpu = 042
+rank = 0000, thread = 005, cpu = 044
+rank = 0000, thread = 006, cpu = 040
+rank = 0000, thread = 007, cpu = 004
+rank = 0000, thread = 008, cpu = 043
+rank = 0000, thread = 009, cpu = 003
+
+************************************************************************************ 
+Hello Rahul from processor cgpu09, rank = 5 out of 7 processors
+My GPU = 0000:89:00.0
+I see a total of 7 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 6: 0000:B2:00.0
+CPUs and Threads assigned to me are 
+rank = 0005, thread = 000, cpu = 031
+rank = 0005, thread = 001, cpu = 032
+rank = 0005, thread = 002, cpu = 071
+rank = 0005, thread = 003, cpu = 074
+rank = 0005, thread = 004, cpu = 030
+rank = 0005, thread = 005, cpu = 070
+rank = 0005, thread = 006, cpu = 034
+rank = 0005, thread = 007, cpu = 033
+rank = 0005, thread = 008, cpu = 072
+rank = 0005, thread = 009, cpu = 032
+
+************************************************************************************ 
+Hello Rahul from processor cgpu09, rank = 2 out of 7 processors
+My GPU = 0000:3D:00.0
+I see a total of 7 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+CPUs and Threads assigned to me are 
+rank = 0002, thread = 000, cpu = 047
+rank = 0002, thread = 001, cpu = 009
+rank = 0002, thread = 002, cpu = 008
+rank = 0002, thread = 003, cpu = 048
+rank = 0002, thread = 004, cpu = 049
+rank = 0002, thread = 005, cpu = 007
+rank = 0002, thread = 006, cpu = 008
+rank = 0002, thread = 007, cpu = 046
+rank = 0002, thread = 008, cpu = 006
+rank = 0002, thread = 009, cpu = 048
+
+************************************************************************************ 
+Hello Rahul from processor cgpu09, rank = 1 out of 7 processors
+My GPU = 0000:1B:00.0
+I see a total of 7 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+CPUs and Threads assigned to me are 
+rank = 0001, thread = 000, cpu = 020
+rank = 0001, thread = 001, cpu = 021
+rank = 0001, thread = 002, cpu = 060
+rank = 0001, thread = 003, cpu = 023
+rank = 0001, thread = 004, cpu = 064
+rank = 0001, thread = 005, cpu = 024
+rank = 0001, thread = 006, cpu = 063
+rank = 0001, thread = 007, cpu = 022
+rank = 0001, thread = 008, cpu = 062
+rank = 0001, thread = 009, cpu = 023
+
+************************************************************************************ 
+Hello Rahul from processor cgpu09, rank = 3 out of 7 processors
+My GPU = 0000:3E:00.0
+I see a total of 7 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+CPUs and Threads assigned to me are 
+rank = 0003, thread = 000, cpu = 026
+rank = 0003, thread = 001, cpu = 027
+rank = 0003, thread = 002, cpu = 066
+rank = 0003, thread = 003, cpu = 029
+rank = 0003, thread = 004, cpu = 065
+rank = 0003, thread = 005, cpu = 069
+rank = 0003, thread = 006, cpu = 025
+rank = 0003, thread = 007, cpu = 026
+rank = 0003, thread = 008, cpu = 066
+rank = 0003, thread = 009, cpu = 028
+
+************************************************************************************ 
