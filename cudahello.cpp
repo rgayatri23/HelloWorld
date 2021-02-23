@@ -3,7 +3,7 @@
 #include <mpi.h>
 #include <omp.h>
 #include <sched.h>
-#include <stdio.h>
+#include <iostream>
 
 int find_gpus(void) {
     int ngpu;
@@ -26,6 +26,11 @@ int main(int argc, char* argv[]) {
     MPI_Comm_rank(MPI_COMM_WORLD, &myid);
     MPI_Get_processor_name(myname, &namelen);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+    char* lrank = getenv("SLURM_PROCID");
+    int nthreads = atoi(getenv("OMP_NUM_THREADS"));
+
+    printf("Lrank from MPI = %s, num_threads = %d\n", lrank, nthreads);
 
     int ngpu = find_gpus();
     char my_gpu[15];
@@ -55,7 +60,7 @@ int main(int argc, char* argv[]) {
 
     fprintf(stdout, "CPUs and Threads assigned to me are \n");
 
-#pragma omp parallel for ordered
+#pragma omp parallel for ordered num_threads(nthreads)
     for (int i = 0; i < omp_get_max_threads(); ++i) {
 #pragma omp ordered
         fprintf(stdout, "rank = %04d, thread = %03d, cpu = %03d\n", myid,
