@@ -32,8 +32,7 @@ NICS=(mlx5_0:1 mlx5_1:1 mlx5_2:1 mlx5_3:1 mlx5_5:1 mlx5_6:1 mlx5_7:1 mlx5_8:1)
 # This is the list of CPU numa regions we should use for each GPU
 # The NUMA Affinity info seems a little weird, so I'm making some socket
 # binding assumptions
-##CPUS=(3 3 1 1 7 7 5 5)
-CPUS=(3 3 1 1 3 3 1 1)
+CPUS=(3 3 1 1 7 7 5 5)
 
 # this is the order we want the GPUs to be assigned in (e.g. for NVLink connectivity)
 # Since everything is bound, NVLink connectivity doesn't matter
