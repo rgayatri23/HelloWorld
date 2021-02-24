@@ -30,6 +30,7 @@ echo "slurm-cpus-per-task = $SLURM_CPUS_PER_TASK"
 echo "slurm-cpus-on-node = $cpus_node"
 echo "gpus-per-task = $gpu_task, total-gpus-req = $total_gpus"
 
+export OMP_NUM_THREADS=16
 export OMP_PROC_BIND=spread
 export OMP_PLACES=threads
 exe=./cudahello
@@ -41,31 +42,35 @@ export EXE=$exe
 if [[ ${SLURM_JOB_PARTITION} == "dgx" ]]; then
   option=2
   if [[ ${OPTION} == "0" ]]; then
-    export OMP_NUM_THREADS=16
+    # Rank to numa domain is reordered to minize distance to the GPU
     command="srun -n$ntasks_node -c$c_task --cpu_bind=map_ldom:3,2,1,0,7,6,5,4 $exe"
   elif [[ ${OPTION} == "1" ]]; then
-    export OMP_NUM_THREADS=16
+    # Only use numa domains 3, 1, 7 and 5 to avoid Infinity Fabric hops
+    # Reduce the number of threads, and unset OMP bindings
+    #   this means the OS can float cores and hopefully balance them w/o overlap
+    export OMP_NUM_THREADS=8
+    unset OMP_PROC_BIND
+    unset OMP_PLACES
     command="srun -n$ntasks_node -c$c_task --cpu_bind=map_ldom:3,3,1,1,7,7,5,5 $exe"
-  else
+  elif [[ ${OPTION} == "2" ]]; then
+    # Only use numa domains 3, 1, 7 and 5 to avoid Infinity Fabric hops
+    # Explicity bind 1/2 the threads per domain
+    #   should be an advantage over option 1
     export OMP_NUM_THREADS=8
     mask7h="0xff000000000000000000000000000000"
     mask7l="0x00ff0000000000000000000000000000"
-    mask6h="0x0000ff00000000000000000000000000"
-    mask6l="0x000000ff000000000000000000000000"
     mask5h="0x00000000ff0000000000000000000000"
     mask5l="0x0000000000ff00000000000000000000"
-    mask4h="0x000000000000ff000000000000000000"
-    mask4l="0x00000000000000ff0000000000000000"
     mask3h="0x0000000000000000ff00000000000000"
     mask3l="0x000000000000000000ff000000000000"
-    mask2h="0x00000000000000000000ff0000000000"
-    mask2l="0x0000000000000000000000ff00000000"
     mask1h="0x000000000000000000000000ff000000"
     mask1l="0x00000000000000000000000000ff0000"
-    mask0h="0x0000000000000000000000000000ff00"
-    mask0l="0x000000000000000000000000000000ff"
     export mask="$mask3h,$mask3l,$mask1h,$mask1l,$mask7h,$mask7l,$mask5h,$mask5l"
     command="srun -n$ntasks_node -c$c_task --cpu_bind=mask_cpu:$mask $exe"
+  else
+    # Nominal slurm binding of linear numa domain mapping 0,1,2,3,4,5,6,7
+    #   however, this is not optimal as up to 2 IF hops are encountered
+    command="srun -n$ntasks_node -c$c_task --cpu_bind=cores $exe"
   fi
 else
   export OMP_NUM_THREADS=10
