@@ -1,0 +1,8 @@
+CMakeCache.txt
+CMakeFiles/
+HelloWorld.o*
+Makefile
+cmake_install.cmake
+cudahello
+slurm-*.out
+
