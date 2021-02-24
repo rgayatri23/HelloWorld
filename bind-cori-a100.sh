@@ -22,7 +22,6 @@
 #mlx5_9  SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS      X      PIX
 #mlx5_10 SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     SYS     PIX      X
 
-
 # this is the list of GPUs we have
 GPUS=(0 1 2 3 4 5 6 7)
 
@@ -33,7 +32,8 @@ NICS=(mlx5_0:1 mlx5_1:1 mlx5_2:1 mlx5_3:1 mlx5_5:1 mlx5_6:1 mlx5_7:1 mlx5_8:1)
 # This is the list of CPU numa regions we should use for each GPU
 # The NUMA Affinity info seems a little weird, so I'm making some socket
 # binding assumptions
-CPUS=(3 3 1 1 7 7 5 5)
+##CPUS=(3 3 1 1 7 7 5 5)
+CPUS=(3 3 1 1 3 3 1 1)
 
 # this is the order we want the GPUs to be assigned in (e.g. for NVLink connectivity)
 # Since everything is bound, NVLink connectivity doesn't matter
@@ -41,13 +41,11 @@ REORDER=(0 1 2 3 4 5 6 7)
 
 # now given the REORDER array, we set CUDA_VISIBLE_DEVICES, NIC_REORDER and CPU_REORDER to for this mapping
 export CUDA_VISIBLE_DEVICES="${GPUS[${REORDER[0]}]},${GPUS[${REORDER[1]}]},${GPUS[${REORDER[2]}]},${GPUS[${REORDER[3]}]},${GPUS[${REORDER[4]}]},${GPUS[${REORDER[5]}]},${GPUS[${REORDER[6]}]},${GPUS[${REORDER[7]}]}"
-NIC_REORDER=(${NICS[${REORDER[0]}]} ${NICS[${REORDER[1]}]} ${NICS[${REORDER[2]}]} ${NICS[${REORDER[3]}]} ${NICS[${REORDER[4]}]} ${NICS[${REORDER[5]}]} ${NICS[${REORDER[6]}]} ${NICS[${REORDER[7]}]}) 
 CPU_REORDER=(${CPUS[${REORDER[0]}]} ${CPUS[${REORDER[1]}]} ${CPUS[${REORDER[2]}]} ${CPUS[${REORDER[3]}]} ${CPUS[${REORDER[4]}]} ${CPUS[${REORDER[5]}]} ${CPUS[${REORDER[6]}]} ${CPUS[${REORDER[7]}]})
 
 APP="$EXE"
 
 lrank=$SLURM_LOCALID
-
 
 export UCX_NET_DEVICES=${NIC_REORDER[$lrank]}
 numactl_cmd="numactl --cpunodebind=${CPU_REORDER[$lrank]} --membind=${CPU_REORDER[$lrank]}"

@@ -3,7 +3,7 @@
 #SBATCH -N 1
 #SBATCH -C dgx
 #SBATCH --ntasks-per-node=8
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=32
 #SBATCH --gpus-per-task=1
 #SBATCH --time=00:02:00
 #SBATCH -J HelloWorld
@@ -20,6 +20,10 @@ total_gpus=$(($gpu_task * $ntasks_node ))
 # Hoping that the the compilation happened inside a dir named build
 build_dir="build"
 
+## print numactl --hardware command
+numactl_hdw="numactl --hardware"
+echo "$numactl_hdw"
+$numactl_hdw
 
 echo "slurm-tasks-per-node = $ntasks_node"
 echo "slurm-cpus-per-task = $SLURM_CPUS_PER_TASK"
@@ -29,10 +33,13 @@ echo "gpus-per-task = $gpu_task, total-gpus-req = $total_gpus"
 if [[ ${SLURM_JOB_PARTITION} == "dgx" ]]
 then
 export OMP_NUM_THREADS=16
+export OMP_PROC_BIND=spread
+export OMP_PLACES=threads
 exe=$build_dir/./cudahello.a100
 else
 export OMP_NUM_THREADS=10
-exe=$build_dir/./cudahello.v100
+export OMP_PROC_BIND=cores
+exe="$build_dir"/./cudahello.v100
 fi
 
 r=$SLURM_NTASKS_PER_NODE			# default number of ranks per node

@@ -1,0 +1,185 @@
+numactl --hardware
+available: 2 nodes (0-1)
+node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59
+node 0 size: 191901 MB
+node 0 free: 179591 MB
+node 1 cpus: 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+node 1 size: 193012 MB
+node 1 free: 182944 MB
+node distances:
+node   0   1 
+  0:  10  21 
+  1:  21  10 
+slurm-tasks-per-node = 8
+slurm-cpus-per-task = 10
+slurm-cpus-on-node = 80
+gpus-per-task = 1, total-gpus-req = 8
+srun -n8 -c10 ./bind-cori-v100.sh
+Local rank 7 using UCX device mlx5_0:1 running build/./cudahello.v100
+numactl --cpunodebind=0 --membind=0 build/./cudahello.v100
+Local rank 1 using UCX device mlx5_3:1 running build/./cudahello.v100
+numactl --cpunodebind=0 --membind=0 build/./cudahello.v100
+Local rank 4 using UCX device mlx5_4:1 running build/./cudahello.v100
+numactl --cpunodebind=1 --membind=1 build/./cudahello.v100
+Local rank 2 using UCX device mlx5_1:1 running build/./cudahello.v100
+numactl --cpunodebind=0 --membind=0 build/./cudahello.v100
+Local rank 3 using UCX device mlx5_2:1 running build/./cudahello.v100
+numactl --cpunodebind=0 --membind=0 build/./cudahello.v100
+Local rank 0 using UCX device mlx5_0:1 running build/./cudahello.v100
+numactl --cpunodebind=0 --membind=0 build/./cudahello.v100
+Local rank 5 using UCX device mlx5_7:1 running build/./cudahello.v100
+numactl --cpunodebind=1 --membind=1 build/./cudahello.v100
+Local rank 6 using UCX device mlx5_5:1 running build/./cudahello.v100
+numactl --cpunodebind=1 --membind=1 build/./cudahello.v100
+Lrank from MPI = 4, num_threads = 5
+Hello Rahul from processor cgpu16, rank = 4 out of 8 processors
+My GPU = 0000:88:00.0
+I see a total of 8 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+rank = 7: 0000:B3:00.0
+CPUs and Threads assigned to me are 
+rank = 0004, thread = 000, cpu = 020
+rank = 0004, thread = 001, cpu = 024
+rank = 0004, thread = 002, cpu = 028
+rank = 0004, thread = 003, cpu = 032
+rank = 0004, thread = 004, cpu = 036
+
+************************************************************************************ 
+Lrank from MPI = 3, num_threads = 5
+Hello Rahul from processor cgpu16, rank = 3 out of 8 processors
+My GPU = 0000:3E:00.0
+I see a total of 8 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+rank = 7: 0000:B3:00.0
+CPUs and Threads assigned to me are 
+rank = 0003, thread = 000, cpu = 000
+rank = 0003, thread = 001, cpu = 004
+rank = 0003, thread = 002, cpu = 008
+rank = 0003, thread = 003, cpu = 012
+rank = 0003, thread = 004, cpu = 016
+
+************************************************************************************ 
+Lrank from MPI = 0, num_threads = 5
+Hello Rahul from processor cgpu16, rank = 0 out of 8 processors
+My GPU = 0000:1A:00.0
+I see a total of 8 GPUs and the other PCI IDs are: 
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+rank = 7: 0000:B3:00.0
+CPUs and Threads assigned to me are 
+rank = 0000, thread = 000, cpu = 000
+rank = 0000, thread = 001, cpu = 004
+rank = 0000, thread = 002, cpu = 008
+rank = 0000, thread = 003, cpu = 012
+rank = 0000, thread = 004, cpu = 016
+
+************************************************************************************ 
+Lrank from MPI = 6, num_threads = 5
+Hello Rahul from processor cgpu16, rank = 6 out of 8 processors
+My GPU = 0000:B2:00.0
+I see a total of 8 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 7: 0000:B3:00.0
+CPUs and Threads assigned to me are 
+rank = 0006, thread = 000, cpu = 020
+rank = 0006, thread = 001, cpu = 024
+rank = 0006, thread = 002, cpu = 028
+rank = 0006, thread = 003, cpu = 032
+rank = 0006, thread = 004, cpu = 036
+
+************************************************************************************ 
+Lrank from MPI = 1, num_threads = 5
+Hello Rahul from processor cgpu16, rank = 1 out of 8 processors
+My GPU = 0000:1B:00.0
+I see a total of 8 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+rank = 7: 0000:B3:00.0
+CPUs and Threads assigned to me are 
+rank = 0001, thread = 000, cpu = 000
+rank = 0001, thread = 001, cpu = 004
+rank = 0001, thread = 002, cpu = 008
+rank = 0001, thread = 003, cpu = 012
+rank = 0001, thread = 004, cpu = 016
+
+************************************************************************************ 
+Lrank from MPI = 5, num_threads = 5
+Hello Rahul from processor cgpu16, rank = 5 out of 8 processors
+My GPU = 0000:89:00.0
+I see a total of 8 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 6: 0000:B2:00.0
+rank = 7: 0000:B3:00.0
+CPUs and Threads assigned to me are 
+rank = 0005, thread = 000, cpu = 020
+rank = 0005, thread = 001, cpu = 024
+rank = 0005, thread = 002, cpu = 028
+rank = 0005, thread = 003, cpu = 032
+rank = 0005, thread = 004, cpu = 036
+
+************************************************************************************ 
+Lrank from MPI = 7, num_threads = 5
+Hello Rahul from processor cgpu16, rank = 7 out of 8 processors
+My GPU = 0000:B3:00.0
+I see a total of 8 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 2: 0000:3D:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+CPUs and Threads assigned to me are 
+rank = 0007, thread = 000, cpu = 000
+rank = 0007, thread = 001, cpu = 004
+rank = 0007, thread = 002, cpu = 008
+rank = 0007, thread = 003, cpu = 012
+rank = 0007, thread = 004, cpu = 016
+
+************************************************************************************ 
+Lrank from MPI = 2, num_threads = 5
+Hello Rahul from processor cgpu16, rank = 2 out of 8 processors
+My GPU = 0000:3D:00.0
+I see a total of 8 GPUs and the other PCI IDs are: 
+rank = 0: 0000:1A:00.0
+rank = 1: 0000:1B:00.0
+rank = 3: 0000:3E:00.0
+rank = 4: 0000:88:00.0
+rank = 5: 0000:89:00.0
+rank = 6: 0000:B2:00.0
+rank = 7: 0000:B3:00.0
+CPUs and Threads assigned to me are 
+rank = 0002, thread = 000, cpu = 000
+rank = 0002, thread = 001, cpu = 004
+rank = 0002, thread = 002, cpu = 008
+rank = 0002, thread = 003, cpu = 012
+rank = 0002, thread = 004, cpu = 016
+
+************************************************************************************ 
