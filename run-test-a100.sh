@@ -33,13 +33,13 @@ echo "gpus-per-task = $gpu_task, total-gpus-req = $total_gpus"
 if [[ ${SLURM_JOB_PARTITION} == "dgx" ]]
 then
 export OMP_NUM_THREADS=16
-export OMP_PROC_BIND=spread
-export OMP_PLACES=threads
-exe=$build_dir/./cudahello.a100
+#export OMP_PROC_BIND=spread
+#export OMP_PLACES=threads
+exe=./cudahello
 else
 export OMP_NUM_THREADS=10
 export OMP_PROC_BIND=cores
-exe="$build_dir"/./cudahello.v100
+exe=./cudahello
 fi
 
 r=$SLURM_NTASKS_PER_NODE			# default number of ranks per node
