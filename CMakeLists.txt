@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 3.8)
 set (CMAKE_CUDA_COMPILER_ID NVIDIA)
-set (CMAKE_CUDA_HOST_COMPILER mpicc)
-set (CMAKE_C_COMPILER mpicc)
-set (CMAKE_CXX_COMPILER mpicxx)
+set (CMAKE_CUDA_HOST_COMPILER cc)
+set (CMAKE_C_COMPILER cc)
+set (CMAKE_CXX_COMPILER CC)
 
 SET(EXE cudahello)
 
