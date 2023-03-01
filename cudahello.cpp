@@ -11,9 +11,15 @@ int find_gpus(void) {
     return ngpu;
 }
 void gpu_pci_id(char* device_id, int device_num) {
-    int len;
-    cudaDeviceGetPCIBusId(device_id, len, device_num);
-    return;
+    int len = 32;
+    int ret = cudaDeviceGetPCIBusId(device_id, len, device_num) ;
+    if (!ret)
+        return;
+    else
+    {
+        printf("Could not get the gpu-id. Error code = %d\n",ret);
+        exit(1);
+    }
 }
 
 extern int sched_getcpu(void);
@@ -28,9 +34,14 @@ int main(int argc, char* argv[]) {
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
     char* lrank = getenv("SLURM_PROCID");
-    int nthreads = atoi(getenv("OMP_NUM_THREADS"));
 
-    printf("Lrank from MPI = %s, num_threads = %d\n", lrank, nthreads);
+    // Set nthreads to 2 unless OMP_NUM_THREADS is defined.
+    int nthreads = getenv("OMP_NUM_THREADS") ? atoi(getenv("OMP_NUM_THREADS")) : 2;
+
+    int max_threads = omp_get_max_threads();
+    
+
+    printf("Lrank from MPI = %s, num_threads = %d, max_threads = %d\n", lrank, nthreads, max_threads);
 
     int ngpu = find_gpus();
     char my_gpu[15];
@@ -61,7 +72,7 @@ int main(int argc, char* argv[]) {
     fprintf(stdout, "CPUs and Threads assigned to me are \n");
 
 #pragma omp parallel for ordered num_threads(nthreads)
-    for (int i = 0; i < omp_get_max_threads(); ++i) {
+    for (int i = 0; i < nthreads; ++i) {
 #pragma omp ordered
         fprintf(stdout, "rank = %04d, thread = %03d, cpu = %03d\n", myid,
                 omp_get_thread_num(), sched_getcpu());
