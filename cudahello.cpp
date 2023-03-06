@@ -33,15 +33,13 @@ int main(int argc, char* argv[]) {
     MPI_Get_processor_name(myname, &namelen);
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
-    char* lrank = getenv("SLURM_PROCID");
-
     // Set nthreads to 2 unless OMP_NUM_THREADS is defined.
     int nthreads = getenv("OMP_NUM_THREADS") ? atoi(getenv("OMP_NUM_THREADS")) : 2;
 
     int max_threads = omp_get_max_threads();
     
 
-    printf("Lrank from MPI = %s, num_threads = %d, max_threads = %d\n", lrank, nthreads, max_threads);
+    printf("Rank from MPI = %d, num_threads = %d, max_threads = %d\n", myid, nthreads, max_threads);
 
     int ngpu = find_gpus();
     char my_gpu[15];
@@ -51,7 +49,7 @@ int main(int argc, char* argv[]) {
             "\n",
             myname, myid, world_size);
     char my_gpu_id[15];
-    gpu_pci_id(my_gpu_id, myid);
+    gpu_pci_id(my_gpu_id, myid%ngpu); // Each node has `ngpu` number of GPUs.
     fprintf(stdout, "My GPU = %s\n", my_gpu_id);
 
     fprintf(stdout, "I see a total of %d GPUs and the other PCI IDs are: \n",
